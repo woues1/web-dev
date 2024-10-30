@@ -1,0 +1,17 @@
+.card{
+    border-color: black;
+    border: solid;
+    margin: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+.list{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+}
+.profile-picture{
+
+}
