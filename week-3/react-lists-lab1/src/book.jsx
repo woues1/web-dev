@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types'
 
 function Book({ book }) {
   return (
@@ -10,5 +11,6 @@ function Book({ book }) {
     </div>
   );
 }
+
 
 export default Book;
