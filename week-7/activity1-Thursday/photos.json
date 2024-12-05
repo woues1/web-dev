@@ -1,0 +1,156 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "description": "API for managing photos",
+      "version": "1.0.0",
+      "title": "photo API"
+    },
+    "servers": [
+      {
+        "url": "https://jsonplaceholder.typicode.com"
+      }
+    ],
+    "paths": {
+      "/photos": {
+        "get": {
+          "summary": "Retrieve a list of photos",
+          "responses": {
+            "200": {
+              "description": "A list of photos",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/photo"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new photo",
+          "requestBody": {
+            "description": "The photo to create",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/photo"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "photo created"
+            }
+          }
+        }
+      },
+      "/photos/{id}": {
+        "get": {
+          "summary": "Retrieve information about a specific photo",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "photo details",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/photo"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update information for a specific photo",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "The photo to update",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/photo"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "photo updated"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a specific photo",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "photo deleted"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "photo": {
+          "type": "object",
+          "properties": {
+            "albumId": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "title": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
+            "thumbnailUrl": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+  
