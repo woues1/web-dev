@@ -1,0 +1,401 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Todo Task API",
+        "version": "1.0.0",
+        "description": "API for managing todo tasks, users, and tours"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5000",
+            "description": "Local server"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "schemas": {
+            "TodoTask": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "dueDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "completed": {
+                        "type": "boolean"
+                    },
+                    "user_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Tour": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "info": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "paths": {
+        "/api/todoTasks": {
+            "get": {
+                "summary": "Get all todo tasks",
+                "tags": ["TodoTasks"],
+                "responses": {
+                    "200": {
+                        "description": "A list of todo tasks",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TodoTask"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new todo task",
+                "tags": ["TodoTasks"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TodoTask"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Todo task created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TodoTask"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/todoTasks/{id}": {
+            "get": {
+                "summary": "Get a todo task by ID",
+                "tags": ["TodoTasks"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A todo task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TodoTask"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a todo task by ID",
+                "tags": ["TodoTasks"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TodoTask"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Todo task updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TodoTask"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a todo task by ID",
+                "tags": ["TodoTasks"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Todo task deleted"
+                    }
+                }
+            }
+        },
+        "/api/users/signup": {
+            "post": {
+                "summary": "Sign up a new user",
+                "tags": ["Users"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User signed up",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/login": {
+            "post": {
+                "summary": "Log in a user",
+                "tags": ["Users"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User logged in",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tours": {
+            "get": {
+                "summary": "Get all tours",
+                "tags": ["Tours"],
+                "responses": {
+                    "200": {
+                        "description": "A list of tours",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Tour"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new tour",
+                "tags": ["Tours"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Tour"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Tour created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Tour"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tours/{tourId}": {
+            "get": {
+                "summary": "Get a tour by ID",
+                "tags": ["Tours"],
+                "parameters": [
+                    {
+                        "name": "tourId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A tour",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Tour"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a tour by ID",
+                "tags": ["Tours"],
+                "parameters": [
+                    {
+                        "name": "tourId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Tour"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tour updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Tour"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a tour by ID",
+                "tags": ["Tours"],
+                "parameters": [
+                    {
+                        "name": "tourId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Tour deleted"
+                    }
+                }
+            }
+        }
+    }
+}
