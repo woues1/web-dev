@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-// import { useContext } from 'react';
-// import ThemeContext from '../context/ThemeContext';
+import { useContext } from "react";
+import ThemeContext from "../context/ThemeContext";
 
 const JobListings = ({ jobs }) => {
-  // const { backgroundColor } = useContext(ThemeContext);
-  const backgroundColor="#000"
+  const { backgroundColor } = useContext(ThemeContext);
+  // const backgroundColor="#000"
 
   return (
     <div className="job-list" style={{ backgroundColor, }}>
